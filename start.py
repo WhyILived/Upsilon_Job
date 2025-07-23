@@ -15,9 +15,12 @@ def start_backend():
 def start_frontend():
     """Start the frontend server"""
     print("Starting frontend server...")
-    subprocess.Popen(['http-server', '-p', '3000', 'frontend'], 
-                     stdout=subprocess.PIPE, 
-                     stderr=subprocess.PIPE)
+    subprocess.Popen([
+        r'C:\Users\shadh\AppData\Roaming\npm\http-server.cmd',
+        '-p', '3000', 'frontend'
+    ], 
+    stdout=subprocess.PIPE, 
+    stderr=subprocess.PIPE)
 
 if __name__ == "__main__":
     print("Starting Upsilon Job application...")
