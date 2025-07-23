@@ -11,10 +11,10 @@ Upsilon_Job/
 │   ├── styles.css     # Styling
 │   └── script.js      # Frontend logic
 ├── backend/           # Python Flask backend
-│   ├── app.py         # Main Flask application
+│   ├── app.py         # Main Flask application (serves both backend and frontend)
 │   └── requirements.txt # Python dependencies
-├── start.py           # Startup script for both servers
-└── README.md          # This file
+├── README.md          # This file
+└── .gitignore         # Git ignore rules
 ```
 
 ## Features
@@ -29,20 +29,23 @@ Upsilon_Job/
 
 ### Prerequisites
 
-1. **Node.js** - Download from [https://nodejs.org/](https://nodejs.org/)
-2. **Python 3.7+** - Download from [https://python.org/](https://python.org/)
-3. **LaTeX Distribution** - Install MiKTeX (Windows) or TeX Live
+1. **Python 3.7+** - Download from [https://python.org/](https://python.org/)
+2. **LaTeX Distribution** - Install MiKTeX (Windows) or TeX Live
 
 ### Installation
 
-1. **Install http-server globally:**
+1. **(Recommended) Create and activate a virtual environment:**
    ```bash
-   npm install -g http-server
+   cd backend
+   python -m venv venv
+   # Windows:
+   venv\Scripts\activate
+   # macOS/Linux:
+   source venv/bin/activate
    ```
 
 2. **Install Python dependencies:**
    ```bash
-   cd backend
    pip install -r requirements.txt
    cd ..
    ```
@@ -54,32 +57,22 @@ Upsilon_Job/
 
 ### Running the Application
 
-**Option 1: Use the startup script**
-```bash
-python start.py
-```
-
-**Option 2: Run servers separately**
-
-Terminal 1 (Backend):
+**Single command (from the backend directory):**
 ```bash
 cd backend
 python app.py
 ```
 
-Terminal 2 (Frontend):
-```bash
-http-server -p 3000 frontend
-```
+- Visit [http://localhost:5000](http://localhost:5000) in your browser.
+- The frontend and backend are both served from Flask.
 
 ### Access the Application
 
-- **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:5000
+- **App (Frontend + Backend):** http://localhost:5000
 
 ## Usage
 
-1. Open http://localhost:3000 in your browser
+1. Open http://localhost:5000 in your browser
 2. Upload a job description file
 3. Click "Generate Resume"
 4. Preview and download the generated PDF
@@ -88,10 +81,10 @@ http-server -p 3000 frontend
 
 ### Frontend Development
 - Edit files in `frontend/` directory
-- Changes are reflected immediately when using http-server
+- Changes are reflected when you refresh the browser (Flask serves the latest files)
 
 ### Backend Development
-- Edit `backend/app.py` for API changes
+- Edit `backend/app.py` for API or serving logic
 - Flask auto-reloads in debug mode
 
 ### Adding LaTeX Templates
@@ -119,7 +112,13 @@ http-server -p 3000 frontend
 - Ensure `pdflatex` is in your system PATH
 
 **Port already in use:**
-- Change ports in `start.py` or run servers manually with different ports
+- Change the port in `app.py` or stop other processes using port 5000
 
 **CORS errors:**
 - Ensure Flask-CORS is installed: `pip install Flask-CORS`
+
+**Virtual environment issues:**
+- Make sure your editor and terminal are using the Python interpreter from your venv.
+
+## .gitignore
+A sample `.gitignore` is provided to avoid committing virtual environments, LaTeX build files, and other generated content.

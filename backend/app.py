@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, send_from_directory
 from flask_cors import CORS
 import os
 import tempfile
@@ -135,6 +135,15 @@ def download_pdf(filename):
 @app.route('/api/health')
 def health_check():
     return jsonify({'status': 'healthy', 'message': 'Backend is running'})
+
+# Serve frontend static files
+@app.route('/')
+def serve_index():
+    return send_from_directory('../frontend', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('../frontend', path)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000) 

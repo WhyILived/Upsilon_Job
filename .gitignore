@@ -1,0 +1,24 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# LaTeX build files
+backend/uploads/
+backend/tex_files/
+backend/pdf_files/
+*.aux
+*.log
+*.out
+*.pdf
+*.tex
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node/npm (if ever used)
+node_modules/
+
+# Misc
+.env 
