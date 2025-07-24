@@ -3,3 +3,4 @@ Flask-CORS
 Werkzeug
 vellum-ai
 python-dotenv 
+requests

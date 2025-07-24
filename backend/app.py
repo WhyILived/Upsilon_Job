@@ -134,6 +134,52 @@ def generate_resume():
     except Exception as e:
         return jsonify({'error': f'Server error: {str(e)}'}), 500
 
+@app.route('/api/render-latex', methods=['POST'])
+def render_latex():
+    try:
+        data = request.get_json()
+        if not data or 'latex' not in data:
+            return jsonify({'error': 'No LaTeX code provided'}), 400
+        latex_code = data['latex']
+
+        # Generate unique filename
+        import uuid
+        unique_id = str(uuid.uuid4())[:8]
+        tex_filename = f"render_{unique_id}.tex"
+        pdf_filename = f"render_{unique_id}.pdf"
+
+        tex_filepath = os.path.join(TEX_FOLDER, tex_filename)
+        pdf_filepath = os.path.join(PDF_FOLDER, pdf_filename)
+
+        # Save LaTeX file
+        with open(tex_filepath, 'w', encoding='utf-8') as f:
+            f.write(latex_code)
+
+        # Convert LaTeX to PDF
+        try:
+            subprocess.run([
+                'pdflatex',
+                '-interaction=nonstopmode',
+                f'-output-directory={PDF_FOLDER}',
+                tex_filepath
+            ], check=True, capture_output=True)
+
+            # Check if PDF was created
+            if os.path.exists(pdf_filepath):
+                return jsonify({
+                    'success': True,
+                    'pdf_url': f'/api/download-pdf/{pdf_filename}',
+                    'message': 'PDF rendered successfully'
+                })
+            else:
+                return jsonify({'error': 'Failed to generate PDF'}), 500
+        except subprocess.CalledProcessError as e:
+            return jsonify({'error': f'LaTeX compilation failed: {e.stderr.decode()}'}), 500
+        except FileNotFoundError:
+            return jsonify({'error': 'LaTeX compiler (pdflatex) not found. Please install a LaTeX distribution.'}), 500
+    except Exception as e:
+        return jsonify({'error': f'Server error: {str(e)}'}), 500
+
 @app.route('/api/download-pdf/<filename>')
 def download_pdf(filename):
     try:
