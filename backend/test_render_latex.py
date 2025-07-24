@@ -299,14 +299,16 @@ latex_code = r'''
 \end{document}T
 '''
 
-payload = {
-    'latex': latex_code
-}
+def test_render_latex(latex_code):
+    payload = {
+        'latex': latex_code
+    }
+    response = requests.post(URL, json=payload)
 
-response = requests.post(URL, json=payload)
+    print('Status code:', response.status_code)
+    try:
+        print('Response:', response.json())
+    except Exception:
+        print('Raw response:', response.text) 
 
-print('Status code:', response.status_code)
-try:
-    print('Response:', response.json())
-except Exception:
-    print('Raw response:', response.text) 
+test_render_latex(latex_code)
