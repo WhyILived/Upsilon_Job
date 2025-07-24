@@ -5,6 +5,19 @@ import tempfile
 import subprocess
 from werkzeug.utils import secure_filename
 import json
+from pathlib import Path
+from dotenv import load_dotenv
+from vellum.client import Vellum
+import vellum.types as types
+
+# Load .env from root directory
+project_root = Path(__file__).parent.parent
+load_dotenv(project_root / '.env')
+
+# create your API key here: https://app.vellum.ai/api-keys#keys
+vellum_client = Vellum(
+    api_key=os.environ.get("VELLUM_API_KEY")
+)
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
