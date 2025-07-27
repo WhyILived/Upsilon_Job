@@ -19,57 +19,6 @@ def get_sentence_embeddings(sentence_list):
             config = types.EmbedContentConfig(task_type="SEMANTIC_SIMILARITY")).embeddings
         ]
 
-test_dict = {
-    "Experiences": [
-        {
-            "Accomplishments": [
-                {
-                    "Impact": 4,
-                    "Key Terms": [
-                        "Developed",
-                        "full stack web app",
-                        "10,000 users",
-                        "Flask",
-                        "React.js",
-                        "tailwind"
-                    ],
-                    "Sentence": "Developed a full stack web app amassing over 10,000 users using Flask, React.js and tailwind"
-                }
-            ],
-            "Name": "Software Engineer | Google",
-            "Type": "Job"
-        },
-        {
-            "Accomplishments": [
-                {
-                    "Impact": 3,
-                    "Key Terms": [
-                        "Trained",
-                        "neural network",
-                        "90% accuracy",
-                        "mnist",
-                        "pytorch",
-                        "cv2"
-                    ],
-                    "Sentence": "Trained a neural network to 90% accuracy in classifying the mnist digit dataset using pytorch and cv2"
-                },
-                {
-                    "Impact": 2,
-                    "Key Terms": [
-                        "Created",
-                        "graph",
-                        "loss",
-                        "model",
-                        "matplotlib"
-                    ],
-                    "Sentence": "Created a graph detailing the loss of the model over the training iterations using matplotlib"
-                }
-            ],
-            "Name": "ML digit recognition",
-            "Type": "Project"
-        }
-    ]
-}
 def add_embeddings(experience_dict):
     experience_array = experience_dict["Experiences"]
     term_weighted_arr = []
