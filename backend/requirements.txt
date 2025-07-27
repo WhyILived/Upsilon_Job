@@ -4,3 +4,6 @@ Werkzeug
 vellum-ai
 python-dotenv 
 requests
+google-genai
+numpy
+supabase

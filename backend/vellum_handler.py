@@ -1,7 +1,6 @@
 import os
 from vellum.client import Vellum
 import vellum.types as types
-import json
 from pathlib import Path
 from dotenv import load_dotenv
 
