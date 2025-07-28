@@ -20,8 +20,6 @@ def get_sentence_embeddings(sentence_list):
             config = types.EmbedContentConfig(task_type="SEMANTIC_SIMILARITY")).embeddings
         ]
 
-
-test_id = "1af120f7-2322-43fa-86da-7b09b90588ab"
 def store_resume(resume_dict, u_id):
     resume_dict = vellum_handler.parse_resume(resume_dict)
     experience_array = resume_dict["Experiences"]
@@ -53,5 +51,3 @@ def store_resume(resume_dict, u_id):
     embeddings = get_sentence_embeddings(weighted_sentence)
 
     supabase_handler.store_accomplishments(exp_id, embeddings, raw, key_terms, impact)
-
-store_resume(test_dict, test_id)
