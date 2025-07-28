@@ -12,14 +12,16 @@ client = Vellum(
 )
 def parse_resume(resume_JSON : dict):    
     result = client.execute_workflow(
-        workflow_deployment_name="bullet-point-terms",
-        release_tag="LATEST",
-        inputs=[
-            types.WorkflowRequestJsonInputRequest(
-                name="BuildingBlocks",
-                type="JSON",
-                value=resume_JSON,
+    workflow_deployment_name="bullet-point-terms",
+    release_tag="LATEST",
+    inputs=[
+        types.WorkflowRequestJsonInputRequest(
+            name="BuildingBlocks",
+            type="JSON",
+            value=resume_JSON,
             ),
         ],
     )
+    if result.data.state == "REJECTED":
+        raise Exception(result.data.error.message)
     return result.model_dump()['data']['outputs'][0]['value']
